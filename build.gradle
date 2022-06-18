@@ -1,0 +1,39 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+def junitVersion = "5.8.2",
+    ownerVersion = "1.0.12",
+    restAssuredVersion = "5.1.1",
+    lombokVersion = "1.18.24",
+    jsonSchemaValidatorVersion = "3.0.0",
+    slf4jVersion = "1.7.36"
+
+dependencies
+        {
+            testImplementation(
+                    "org.junit.jupiter:junit-jupiter:$junitVersion",
+                    "io.rest-assured:rest-assured:$restAssuredVersion",
+                    "org.aeonbits.owner:owner:$ownerVersion",
+                    "org.slf4j:slf4j-simple:$slf4jVersion",
+                    "io.rest-assured:json-schema-validator:$jsonSchemaValidatorVersion",
+
+                    testCompileOnly("org.projectlombok:lombok:$lombokVersion"),
+                    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+            )
+        }
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
